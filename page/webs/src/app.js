@@ -1,8 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM, {render} from 'react-dom';
-import Page1 from './Component/Page1';
+import Page1 from './Component/Mode1/index';
 import './Style/app.less';
-import './Style/test.less';
 
 render(
     <div className="red">
