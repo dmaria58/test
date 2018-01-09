@@ -10,7 +10,7 @@ var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, './page/webs/src'); //__dirname 中的src目录，以此类推
 var HTML_PATH = path.resolve(ROOT_PATH, './page/webs/template'); //__dirname 中的src目录，以此类推
 var APP_FILE = path.resolve(APP_PATH, 'app'); //根目录文件app.jsx地址
-var BUILD_PATH = path.resolve(ROOT_PATH, './dev/main/dist'); //发布文件所存放的目录/main/dist/
+var BUILD_PATH = path.resolve(ROOT_PATH, './pro/main/dist'); //发布文件所存放的目录/main/dist/
 module.exports={
    entry: {
         app: APP_FILE,
@@ -31,7 +31,7 @@ module.exports={
         chunkFilename: '[name].[chunkhash:5].min.js',
     },
     resolve:{
-        extensions:['.js', '.jsx', '.less', '.css']
+        extensions:['.js', '.jsx', '.less', '.css'],
     },
     module: {
         rules: [{
@@ -52,6 +52,10 @@ module.exports={
                   use:[{loader: 'css-loader' },{loader: 'postcss-loader'},{loader: 'less-loader'}],
                   fallback: 'style-loader',
             })
+        } ,{
+            test: /\.(png|jpg|gif)$/,
+            exclude: /node_modules/,
+            loader: 'url-loader?limit=8192&name=main/dist/Img/[hash:8].[name].[ext]',
         }, {
             test: /\.jsx$/,
             exclude: /node_modules/,
@@ -59,7 +63,7 @@ module.exports={
         }]
     },
     plugins: [
-      new ExtractTextPlugin('[name].css'),
+      new ExtractTextPlugin('../../[name].css'),
       new HtmlWebpackPlugin({  //根据模板插入css/js等生成最终HTML
             minify:{
                 removeAttributeQuotes:true

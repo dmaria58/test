@@ -1,12 +1,11 @@
-.red{
-	color:red;
-	font-size:30px
+.red {
+  color: red;
+  font-size: 30px;
 }
-.green{
-	color:green
+.green {
+  color: green;
 }
-body
-  { 
+body {
   background-image: url("../Img/img2.jpg");
   background-color: #000000;
-  }
+}

@@ -39,7 +39,11 @@ module.exports={
             test: /\.less$/,
             exclude: /node_modules/,
             loaders: ['style-loader','css-loader','postcss-loader','less-loader']
-        }, {
+        },{
+            test: /\.(png|jpg|gif)$/,
+            exclude: /node_modules/,
+            loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]',
+        },{
             test: /\.jsx$/,
             exclude: /node_modules/,
             loaders: ['babel-loader','jsx']
