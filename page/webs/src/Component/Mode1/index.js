@@ -12,7 +12,7 @@ class Index extends Component {
       		<img src={baseInfoImg}/>
       	</Col>
  	    <Col xs={24} sm={24} md={0} lg={0} xl={0} >      
-      		3453463456  2344534
+      		good morning 12345
       	</Col> 
       	<Col xs={24} sm={24} md={10} lg={21} xl={21} style={{height:"100%"}}>  
 

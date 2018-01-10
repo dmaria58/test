@@ -9,16 +9,19 @@ var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, './page/webs/src'); //__dirname 中的src目录，以此类推
 var HTML_PATH = path.resolve(ROOT_PATH, './page/webs/template'); //__dirname 中的src目录，以此类推
 var ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打包
-
 var APP_FILE = path.resolve(APP_PATH, 'app'); //根目录文件app.jsx地址
 var BUILD_PATH = path.resolve(ROOT_PATH, './dev/main/dist'); //发布文件所存放的目录/main/dist/
+var SHINE_PATH = path.resolve(ROOT_PATH, './page/webs/src/Tool'); 
+var SHINE_FILE = path.resolve(SHINE_PATH, 'es6shim'); 
 module.exports={
     devtool: 'cheap-module-eval-source-map',
     entry: {
         app: [
+            'eventsource-polyfill', //兼容ie
             'webpack-hot-middleware/client?reload=true',
             APP_FILE
-        ]
+        ],
+        es6shine:SHINE_FILE
     },
     output: {
         publicPath: '/main/dist/', //编译好的文件，在服务器的路径,域名会自动添加到前面

@@ -11,6 +11,8 @@ var APP_PATH = path.resolve(ROOT_PATH, './page/webs/src'); //__dirname 中的src
 var HTML_PATH = path.resolve(ROOT_PATH, './page/webs/template'); //__dirname 中的src目录，以此类推
 var APP_FILE = path.resolve(APP_PATH, 'app'); //根目录文件app.jsx地址
 var BUILD_PATH = path.resolve(ROOT_PATH, './pro/main/dist'); //发布文件所存放的目录/main/dist/
+var SHINE_PATH = path.resolve(ROOT_PATH, './page/webs/src/Tool'); 
+var SHINE_FILE = path.resolve(SHINE_PATH, 'es6shim'); 
 module.exports={
    entry: {
         app: APP_FILE,
@@ -22,13 +24,14 @@ module.exports={
             'react-redux',
             'redux-thunk',
             'redux-promise'
-        ]
+        ],
+        es6shine:SHINE_FILE,
     },
     output: {
         publicPath: './main/dist/', //编译好的文件，在服务器的路径,域名会自动添加到前面
         path: BUILD_PATH, //编译到当前目录
-        filename: '[name].js', //编译后的文件名字
         chunkFilename: '[name].[chunkhash:5].min.js',
+        filename: '[name].js', //编译后的文件名字
     },
     resolve:{
         extensions:['.js', '.jsx', '.less', '.css'],
@@ -68,10 +71,16 @@ module.exports={
             minify:{
                 removeAttributeQuotes:true
             },
+            chunksSortMode: function (chunk1, chunk2) {
+              var order = ['es6shine', 'common', 'app'];
+              var order1 = order.indexOf(chunk1.names[0]);
+              var order2 = order.indexOf(chunk2.names[0]);
+              return order1 - order2;  
+            },
             filename: '../../index.html', //输出文件【注意：这里的根路径是module.exports.output.path】
             template: './page/webs/template/index.html', //html模板路径
             inject: 'body',
-            title:"百世物流",
+            title:"test",
             hash: true,
      }),
      new ParallelUglifyPlugin({
