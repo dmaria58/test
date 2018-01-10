@@ -9,7 +9,7 @@ const getLoginSuccess = (path,data) => {
 }
 //登录
 export const getLogin = (path, postData) => {   
-    let url = target + path; 
+    let url = path; 
     return dispatch => {
 		getLoginSuccess(path,"success");
     }
