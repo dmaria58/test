@@ -30,7 +30,7 @@ module.exports={
     output: {
         publicPath: './main/dist/', //编译好的文件，在服务器的路径,域名会自动添加到前面
         path: BUILD_PATH, //编译到当前目录
-        chunkFilename: '[name].[chunkhash:5].min.js',
+        chunkFilename: '[name]-[id].[chunkhash:8].bundle.js',
         filename: '[name].js', //编译后的文件名字
     },
     resolve:{

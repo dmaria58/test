@@ -1,44 +1,71 @@
 import React, {Component, PropTypes} from 'react';
-import { Router, Route, Redirect, IndexRoute, browserHistory,hashHistory} from 'react-router';
+import { HashRouter } from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom'
 import login from '../Component/Login/index'; //登录
 import store from '../Redux/Store/index';
-
-class Roots extends Component {
+import ShowContainer from 'bundle-loader?lazy&name=app-[name]!../Component/Show/index.js';
+import Mode1Container from 'bundle-loader?lazy&name=app-[name]!../Component/Mode1/index.js';
+class Bundle extends React.Component {
+    state = {
+        mod: null
+    }
+    componentWillMount() {
+        this.load(this.props)
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.load !== this.props.load) {
+            this.load(nextProps)
+        }
+    }
+    load(props) {
+        this.setState({
+            mod: null
+        })
+        props.load((mod) => {
+            this.setState({
+                // handle both es imports and cjs
+                mod: mod.default ? mod.default : mod
+            })
+        })
+    }
     render() {
-        return (
-            <div>{this.props.children}</div>
-        );
+        if (!this.state.mod)
+            return false
+        return this.props.children(this.state.mod)
     }
 }
-const page1 = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../Component/page1').default)
-    },'page1')
-}
-const page2 = (location, cb) => {
-    require.ensure([], require => {
-        cb(null, require('../Component/page2').default)
-    },'page2')
-}
-const history = hashHistory;
+
 const requireSessionId=(nextState,replace,next)=>{  //验证用户是否登录成功
-    let sessionId=sessionStorage.getItem("sessionid");
-    if(sessionId && sessionId!=""){
+   /* let sessionId=sessionStorage.getItem("sessionid");
+    if(sessionId && sessionId!=""){ 
         next()
     }else{
         //alert("用户未登陆");
         replace("/");
         next();
-    }
+    }*/
+    next();
 }
-const RouteConfig = (
-    <Router history={history}>
-        <Route path="/" component={Roots}>
-            <IndexRoute component={login} />//登录  
-            <Route path="page1" getComponent={page1} onEnter={requireSessionId}/>  //page1  
-            <Route path="page2" getComponent={page2} onEnter={requireSessionId}/>  //page2  
-        </Route>
-    </Router>
+const Show = () => (
+    <Bundle load={ShowContainer}>
+        {(Show) => <Show />}
+    </Bundle>
+)
+const Mode1 = () => (
+    <Bundle load={Mode1Container}>
+        {(Mode1) => <Mode1 />}
+    </Bundle>
+)
+const RouteConfig =()=> (
+    <HashRouter>
+        <Router basename="/">
+            <div>
+                <Route exact path="/" component={login} />
+                <Route path="/Show" component={Show} />
+                <Route path="/Mode1" component={Mode1} />
+            </div>
+        </Router>
+    </HashRouter>
 );
 
 export default RouteConfig;

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router-dom';
 import {Row, Col,Form, Select, InputNumber, Switch, Radio,
   Slider, Button, Upload, Icon,
  } from 'wmstool';
@@ -8,7 +9,8 @@ class Index extends Component {
     return (
       <div>
 	  <Row className="page1_row">
-	    <Col xs={0} sm={0} md={4} lg={3} xl={3} className="page1_col">      
+	    <Col xs={0} sm={0} md={4} lg={3} xl={3} className="page1_col">   
+      <Link to='/'>登录</Link>   
       		<img src={baseInfoImg}/>
       	</Col>
  	    <Col xs={24} sm={24} md={0} lg={0} xl={0} >      
