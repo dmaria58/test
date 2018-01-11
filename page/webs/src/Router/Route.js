@@ -3,8 +3,10 @@ import { HashRouter } from 'react-router-dom'
 import { HashRouter as Router, Route } from 'react-router-dom'
 import login from '../Component/Login/index'; //登录
 import store from '../Redux/Store/index';
+import createHistory from 'history/createBrowserHistory'
 import ShowContainer from 'bundle-loader?lazy&name=app-[name]!../Component/Show/index.js';
 import Mode1Container from 'bundle-loader?lazy&name=app-[name]!../Component/Mode1/index.js';
+const history = createHistory()
 class Bundle extends React.Component {
     state = {
         mod: null
@@ -57,8 +59,8 @@ const Mode1 = () => (
     </Bundle>
 )
 const RouteConfig =()=> (
-    <HashRouter>
-        <Router basename="/">
+    <HashRouter  history={history}>
+        <Router basename="/" >
             <div>
                 <Route exact path="/" component={login} />
                 <Route path="/Show" component={Show} />
